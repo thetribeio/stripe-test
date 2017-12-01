@@ -1,0 +1,19 @@
+apache:
+  build: ./docker/apache/
+  links:
+    - mysql
+  volumes:
+    - ./etc/php/apache.conf:/etc/apache2/sites-enabled/000-default.conf:ro
+    - ./etc/php/php.ini:/etc/php.ini
+    - ./etc/php/php-cli.ini:/etc/php-cli.ini
+    - ./:/var/www/app
+
+mysql:
+  image: mysql:5.6
+  ports:
+    - "3307:3306"
+  volumes:
+    - /var/lib/mysql/
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: stripetest
